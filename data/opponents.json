@@ -1,0 +1,24 @@
+[
+    {
+        "tribe": "부족A",
+        "nickname": "상대닉1",
+        "elements": {
+            "지": 6,
+            "수": 4,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": 180
+    },
+    {
+        "tribe": "부족B",
+        "nickname": "상대닉2",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 7,
+            "풍": 3
+        },
+        "expectedSpeed": 210
+    }
+]
