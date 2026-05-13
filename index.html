@@ -12,14 +12,18 @@
             <div class="lock-logo">🦖</div>
             <h1>스톤에이지 듀얼</h1>
             <p>비밀번호를 입력하면 입장할 수 있습니다.</p>
+
             <form id="passwordForm" class="password-form">
                 <input id="passwordInput" type="password" autocomplete="current-password" placeholder="비밀번호 입력">
+
                 <label class="remember-row">
                     <input id="rememberAccess" type="checkbox">
                     <span>다음부터 비밀번호 입력 생략</span>
                 </label>
+
                 <button type="submit">입장</button>
             </form>
+
             <div id="passwordError" class="password-error" aria-live="polite"></div>
         </div>
     </div>
@@ -28,137 +32,199 @@
         <header class="hero">
             <div>
                 <p class="eyebrow">StoneAge Duel</p>
-                <h1>펫 검색</h1>
-                <p class="hero-desc">듀얼 준비에 필요한 페트 정보를 이름, 속성, 성장률 기준으로 찾아보세요.</p>
+                <h1>듀얼 정보</h1>
+                <p class="hero-desc">펫 검색과 상대팀 정보를 확인하는 듀얼 준비용 페이지입니다.</p>
             </div>
             <button type="button" class="lock-btn" onclick="lockSite()">잠금</button>
         </header>
 
-        <section class="search-panel" aria-label="펫 검색 조건">
-            <div class="search-row row-1">
-                <div class="search-group">
-                    <label for="pName">페트 이름</label>
-                    <input type="text" id="pName" placeholder="예: 백호, 언딘, 푸테라">
-                </div>
-            </div>
+        <nav class="main-tabs" aria-label="메인 메뉴">
+            <button type="button" class="tab-button active" data-tab="pet" onclick="switchTab('pet')">펫 검색</button>
+            <button type="button" class="tab-button" data-tab="opponent" onclick="switchTab('opponent')">상대팀 정보</button>
+        </nav>
 
-	<div class="search-row row-4">
-	    <div class="search-group">
-	        <label class="elem-ji">지속성</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minJi" min="0" max="10" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxJi" min="0" max="10" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label class="elem-su">수속성</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minSu" min="0" max="10" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxSu" min="0" max="10" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label class="elem-hwa">화속성</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minHwa" min="0" max="10" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxHwa" min="0" max="10" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label class="elem-pung">풍속성</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minPung" min="0" max="10" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxPung" min="0" max="10" placeholder="MAX">
-	        </div>
-	    </div>
-	</div>
-	<div class="search-row row-5">
-	    <div class="search-group">
-	        <label>공 성장</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minAtk" step="0.001" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxAtk" step="0.001" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label>방 성장</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minDef" step="0.001" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxDef" step="0.001" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label>순 성장</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minAgi" step="0.001" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxAgi" step="0.001" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label>체 성장</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minHp" step="0.001" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxHp" step="0.001" placeholder="MAX">
-	        </div>
-	    </div>
-	    <div class="search-group">
-	        <label>전체 성장</label>
-	        <div class="range-inputs">
-	            <input type="number" id="minTotal" step="0.001" placeholder="MIN">
-	            <span>~</span>
-	            <input type="number" id="maxTotal" step="0.001" placeholder="MAX">
-	        </div>
-	    </div>
-	</div>
-            <div class="search-row row-3">
-                <div class="search-group">
-                    <label for="rideFilter">탑승 여부</label>
-                    <select id="rideFilter">
-                        <option value="">전체</option>
-                        <option value="탑승가능">탑승가능</option>
-                        <option value="탑승불가">탑승불가</option>
-                    </select>
+        <section id="petTab" class="tab-panel active">
+            <section class="search-panel" aria-label="펫 검색 조건">
+                <div class="search-row row-1">
+                    <div class="search-group">
+                        <label for="pName">페트 이름</label>
+                        <input type="text" id="pName" placeholder="예: 백호, 언딘, 푸테라">
+                    </div>
                 </div>
-                <div class="search-group">
-                    <label for="sortMetric">정렬 기준</label>
-                    <select id="sortMetric">
-                        <option value="auto">검색 기준 자동</option>
-                        <option value="total">전체 성장</option>
-                        <option value="stats.atk">공 성장</option>
-                        <option value="stats.def">방 성장</option>
-                        <option value="stats.agi">순 성장</option>
-                        <option value="stats.hp">체 성장</option>
-                        <option value="elem.지">지속성</option>
-                        <option value="elem.수">수속성</option>
-                        <option value="elem.화">화속성</option>
-                        <option value="elem.풍">풍속성</option>
-                    </select>
-                </div>
-                <div class="search-group">
-                    <label for="sortOrder">정렬 방향</label>
-                    <select id="sortOrder">
-                        <option value="desc">높은순</option>
-                        <option value="asc">낮은순</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="search-actions">
-                <button type="button" class="btn-reset" onclick="resetSearch()">초기화</button>
-                <button type="button" class="btn-search" onclick="searchPets()">검색</button>
-            </div>
+                <div class="search-row row-4">
+                    <div class="search-group">
+                        <label class="elem-ji">지속성</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minJi" min="0" max="10" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxJi" min="0" max="10" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label class="elem-su">수속성</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minSu" min="0" max="10" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxSu" min="0" max="10" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label class="elem-hwa">화속성</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minHwa" min="0" max="10" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxHwa" min="0" max="10" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label class="elem-pung">풍속성</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minPung" min="0" max="10" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxPung" min="0" max="10" placeholder="MAX">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-row row-5">
+                    <div class="search-group">
+                        <label>공 성장</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minAtk" step="0.001" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxAtk" step="0.001" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label>방 성장</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minDef" step="0.001" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxDef" step="0.001" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label>순 성장</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minAgi" step="0.001" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxAgi" step="0.001" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label>체 성장</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minHp" step="0.001" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxHp" step="0.001" placeholder="MAX">
+                        </div>
+                    </div>
+
+                    <div class="search-group">
+                        <label>전체 성장</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minTotal" step="0.001" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="maxTotal" step="0.001" placeholder="MAX">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-row row-3">
+                    <div class="search-group">
+                        <label for="rideFilter">탑승 여부</label>
+                        <select id="rideFilter">
+                            <option value="">전체</option>
+                            <option value="탑승가능">탑승가능</option>
+                            <option value="탑승불가">탑승불가</option>
+                        </select>
+                    </div>
+
+                    <div class="search-group">
+                        <label for="sortMetric">정렬 기준</label>
+                        <select id="sortMetric">
+                            <option value="auto">검색 기준 자동</option>
+                            <option value="total">전체 성장</option>
+                            <option value="stats.atk">공 성장</option>
+                            <option value="stats.def">방 성장</option>
+                            <option value="stats.agi">순 성장</option>
+                            <option value="stats.hp">체 성장</option>
+                            <option value="elem.지">지속성</option>
+                            <option value="elem.수">수속성</option>
+                            <option value="elem.화">화속성</option>
+                            <option value="elem.풍">풍속성</option>
+                        </select>
+                    </div>
+
+                    <div class="search-group">
+                        <label for="sortOrder">정렬 방향</label>
+                        <select id="sortOrder">
+                            <option value="desc">높은순</option>
+                            <option value="asc">낮은순</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="search-actions">
+                    <button type="button" class="btn-reset" onclick="resetSearch()">초기화</button>
+                    <button type="button" class="btn-search" onclick="searchPets()">검색</button>
+                </div>
+            </section>
+
+            <section id="summaryArea" class="summary-area"></section>
+            <section id="resultArea" class="result-area"></section>
         </section>
 
-        <section id="summaryArea" class="summary-area"></section>
-        <section id="resultArea" class="result-area"></section>
+        <section id="opponentTab" class="tab-panel">
+            <section class="search-panel" aria-label="상대팀 정보 검색 조건">
+                <div class="search-row row-4">
+                    <div class="search-group">
+                        <label for="opponentTribe">부족</label>
+                        <input type="text" id="opponentTribe" placeholder="예: 부족명">
+                    </div>
+
+                    <div class="search-group">
+                        <label for="opponentNickname">닉네임</label>
+                        <input type="text" id="opponentNickname" placeholder="예: 상대 닉네임">
+                    </div>
+
+                    <div class="search-group">
+                        <label for="opponentElement">속성</label>
+                        <select id="opponentElement">
+                            <option value="">전체</option>
+                            <option value="지">지속성 포함</option>
+                            <option value="수">수속성 포함</option>
+                            <option value="화">화속성 포함</option>
+                            <option value="풍">풍속성 포함</option>
+                        </select>
+                    </div>
+
+                    <div class="search-group">
+                        <label>예상 순</label>
+                        <div class="range-inputs">
+                            <input type="number" id="opponentSpeedMin" placeholder="MIN">
+                            <span>~</span>
+                            <input type="number" id="opponentSpeedMax" placeholder="MAX">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-actions">
+                    <button type="button" class="btn-reset" onclick="resetOpponentSearch()">초기화</button>
+                    <button type="button" class="btn-search" onclick="searchOpponents()">검색</button>
+                </div>
+            </section>
+
+            <section id="opponentSummaryArea" class="summary-area"></section>
+            <section id="opponentResultArea" class="result-area"></section>
+        </section>
     </main>
 
     <script src="./js/app.js" defer></script>

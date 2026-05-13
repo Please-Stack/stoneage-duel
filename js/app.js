@@ -3,11 +3,13 @@ const SITE_PASSWORD_HASH = "d4410a4a8b036eebd3fe99d7eefc5fc64a22c1b440999fadbdc6
 const ACCESS_STORAGE_KEY = "stoneage_duel_access_ok";
 
 let petData = [];
+let opponentData = [];
 
 window.addEventListener("DOMContentLoaded", () => {
     initPasswordGate();
     setupEnterKeySearch();
     loadPets();
+    loadOpponents();
 });
 
 function initPasswordGate() {
@@ -38,11 +40,12 @@ function initPasswordGate() {
             if (remember.checked) {
                 localStorage.setItem(ACCESS_STORAGE_KEY, "1");
             }
+
             input.value = "";
             error.textContent = "";
             lockScreen.classList.add("hidden");
             app.classList.remove("hidden");
-            document.getElementById("pName").focus();
+            document.getElementById("pName")?.focus();
         } else {
             error.textContent = "비밀번호가 맞지 않습니다.";
             input.select();
@@ -53,6 +56,7 @@ function initPasswordGate() {
 async function sha256(text) {
     const data = new TextEncoder().encode(text);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
     return Array.from(new Uint8Array(hashBuffer))
         .map(byte => byte.toString(16).padStart(2, "0"))
         .join("");
@@ -63,6 +67,52 @@ function lockSite() {
     document.getElementById("app").classList.add("hidden");
     document.getElementById("lockScreen").classList.remove("hidden");
     document.getElementById("passwordInput").focus();
+}
+
+function setupEnterKeySearch() {
+    document.querySelectorAll("#petTab input, #petTab select").forEach(element => {
+        element.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchPets();
+            }
+        });
+    });
+
+    document.querySelectorAll("#opponentTab input, #opponentTab select").forEach(element => {
+        element.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchOpponents();
+            }
+        });
+    });
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll(".tab-button").forEach(button => {
+        button.classList.toggle("active", button.dataset.tab === tabName);
+    });
+
+    document.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.classList.remove("active");
+    });
+
+    if (tabName === "pet") {
+        document.getElementById("petTab").classList.add("active");
+        document.getElementById("pName")?.focus();
+        return;
+    }
+
+    if (tabName === "opponent") {
+        document.getElementById("opponentTab").classList.add("active");
+        document.getElementById("opponentTribe")?.focus();
+
+        const resultArea = document.getElementById("opponentResultArea");
+        if (opponentData.length && !resultArea.innerHTML.trim()) {
+            searchOpponents();
+        }
+    }
 }
 
 async function loadPets() {
@@ -78,6 +128,7 @@ async function loadPets() {
         }
 
         petData = await response.json();
+
         summaryArea.innerHTML = `
             <div class="summary-box">
                 페트 데이터 <strong>${petData.length}</strong>개를 불러왔습니다. 조건을 입력하고 검색하세요.
@@ -96,15 +147,39 @@ async function loadPets() {
     }
 }
 
-function setupEnterKeySearch() {
-    document.querySelectorAll(".search-panel input, .search-panel select").forEach(element => {
-        element.addEventListener("keydown", event => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                searchPets();
-            }
-        });
-    });
+async function loadOpponents() {
+    const summaryArea = document.getElementById("opponentSummaryArea");
+    const resultArea = document.getElementById("opponentResultArea");
+
+    if (!summaryArea || !resultArea) {
+        return;
+    }
+
+    summaryArea.innerHTML = `<div class="summary-box">상대팀 정보를 불러오는 중입니다...</div>`;
+
+    try {
+        const response = await fetch("./data/opponents.json");
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        opponentData = await response.json();
+
+        summaryArea.innerHTML = `
+            <div class="summary-box">
+                상대팀 정보 <strong>${opponentData.length}</strong>개를 불러왔습니다.
+            </div>
+        `;
+        resultArea.innerHTML = "";
+    } catch (error) {
+        console.error("상대팀 정보 로딩 실패:", error);
+        summaryArea.innerHTML = "";
+        resultArea.innerHTML = `
+            <div class="message-box">
+                data/opponents.json 파일을 불러오지 못했습니다.
+            </div>
+        `;
+    }
 }
 
 function searchPets() {
@@ -155,6 +230,7 @@ function searchPets() {
         .sort((a, b) => {
             const aValue = Number(getPetValueByPath(a, sortMetric) || 0);
             const bValue = Number(getPetValueByPath(b, sortMetric) || 0);
+
             return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
         });
 
@@ -174,9 +250,51 @@ function searchPets() {
     resultArea.innerHTML = filtered.map(renderPetCard).join("");
 }
 
+function searchOpponents() {
+    const summaryArea = document.getElementById("opponentSummaryArea");
+    const resultArea = document.getElementById("opponentResultArea");
+
+    if (!opponentData.length) {
+        summaryArea.innerHTML = "";
+        resultArea.innerHTML = `<div class="message-box">아직 상대팀 정보가 없습니다.</div>`;
+        return;
+    }
+
+    const tribe = getInputValue("opponentTribe").toLowerCase();
+    const nickname = getInputValue("opponentNickname").toLowerCase();
+    const element = getInputValue("opponentElement");
+    const speedRange = getRangeFilter("opponentSpeedMin", "opponentSpeedMax");
+
+    const filtered = opponentData
+        .filter(opponent => {
+            const matchTribe = safeText(opponent.tribe).includes(tribe);
+            const matchNickname = safeText(opponent.nickname).includes(nickname);
+            const matchElement = element === "" || Number(opponent.elements?.[element] || 0) > 0;
+            const matchSpeed = isInRange(opponent.expectedSpeed, speedRange);
+
+            return matchTribe && matchNickname && matchElement && matchSpeed;
+        })
+        .sort((a, b) => Number(b.expectedSpeed || 0) - Number(a.expectedSpeed || 0));
+
+    if (filtered.length === 0) {
+        summaryArea.innerHTML = "";
+        resultArea.innerHTML = `<div class="message-box">검색 결과가 없습니다.</div>`;
+        return;
+    }
+
+    summaryArea.innerHTML = `
+        <div class="summary-box">
+            상대팀 검색 결과: <strong>${filtered.length}</strong>개
+        </div>
+    `;
+
+    resultArea.innerHTML = filtered.map(renderOpponentCard).join("");
+}
+
 function resetSearch() {
-    document.querySelectorAll(".search-panel input").forEach(input => input.value = "");
-    document.querySelectorAll(".search-panel select").forEach(select => select.selectedIndex = 0);
+    document.querySelectorAll("#petTab .search-panel input").forEach(input => input.value = "");
+    document.querySelectorAll("#petTab .search-panel select").forEach(select => select.selectedIndex = 0);
+
     document.getElementById("summaryArea").innerHTML = `
         <div class="summary-box">
             페트 데이터 <strong>${petData.length}</strong>개를 불러왔습니다. 조건을 입력하고 검색하세요.
@@ -184,6 +302,19 @@ function resetSearch() {
     `;
     document.getElementById("resultArea").innerHTML = "";
     document.getElementById("pName").focus();
+}
+
+function resetOpponentSearch() {
+    document.querySelectorAll("#opponentTab .search-panel input").forEach(input => input.value = "");
+    document.querySelectorAll("#opponentTab .search-panel select").forEach(select => select.selectedIndex = 0);
+
+    document.getElementById("opponentSummaryArea").innerHTML = `
+        <div class="summary-box">
+            상대팀 정보 <strong>${opponentData.length}</strong>개를 불러왔습니다.
+        </div>
+    `;
+    document.getElementById("opponentResultArea").innerHTML = "";
+    document.getElementById("opponentTribe").focus();
 }
 
 function renderPetCard(pet) {
@@ -200,6 +331,7 @@ function renderPetCard(pet) {
     return `
         <article class="card">
             <div class="total-badge">${escapeHtml(formatNumber(pet.total))}</div>
+
             <div class="card-head">
                 ${renderThumb(pet)}
                 <div>
@@ -221,6 +353,7 @@ function renderPetCard(pet) {
                         ${renderStat("체", pet.stats?.hp)}
                     </div>
                 </div>
+
                 <div>
                     <div class="stat-row-label">👶 초기치</div>
                     <div class="stat-grid">
@@ -237,6 +370,35 @@ function renderPetCard(pet) {
     `;
 }
 
+function renderOpponentCard(opponent) {
+    const elements = opponent.elements || {};
+    const dominant = getDominantElement(elements);
+
+    return `
+        <article class="card opponent-card">
+            <div class="opponent-head">
+                <div>
+                    <div class="opponent-title">${escapeHtml(opponent.nickname || "-")}</div>
+                    <div class="opponent-sub">부족: ${escapeHtml(opponent.tribe || "-")}</div>
+                    <div class="opponent-sub">주속성: ${escapeHtml(dominant)}</div>
+                </div>
+
+                <div class="opponent-speed">
+                    예상 순
+                    <strong>${escapeHtml(formatNumber(opponent.expectedSpeed))}</strong>
+                </div>
+            </div>
+
+            <div class="elem-list">
+                ${renderOpponentElement("지", elements["지"])}
+                ${renderOpponentElement("수", elements["수"])}
+                ${renderOpponentElement("화", elements["화"])}
+                ${renderOpponentElement("풍", elements["풍"])}
+            </div>
+        </article>
+    `;
+}
+
 function renderStat(label, value) {
     return `
         <div class="stat-val">
@@ -244,6 +406,10 @@ function renderStat(label, value) {
             <span class="stat-num">${escapeHtml(formatNumber(value))}</span>
         </div>
     `;
+}
+
+function renderOpponentElement(label, value) {
+    return `<span class="elem-badge bg-${escapeHtml(label)}">${escapeHtml(label)} ${escapeHtml(value || 0)}</span>`;
 }
 
 function renderThumb(pet) {
@@ -316,16 +482,21 @@ function getPetSortLabel(metric) {
         "elem.화": "화속성",
         "elem.풍": "풍속성"
     };
+
     return labels[metric] || metric;
 }
 
-function getInputValue(id) {
-    return String(document.getElementById(id)?.value ?? "").trim();
-}
+function getDominantElement(elements) {
+    const entries = Object.entries(elements || {})
+        .map(([key, value]) => [key, Number(value || 0)])
+        .filter(([, value]) => value > 0)
+        .sort((a, b) => b[1] - a[1]);
 
-function getNumberValue(id) {
-    const value = Number(getInputValue(id));
-    return Number.isFinite(value) ? value : 0;
+    if (!entries.length) {
+        return "-";
+    }
+
+    return `${entries[0][0]} ${entries[0][1]}`;
 }
 
 function getRangeFilter(minId, maxId) {
@@ -337,7 +508,9 @@ function getRangeFilter(minId, maxId) {
 
 function getNullableNumberValue(id) {
     const raw = getInputValue(id);
-    if (raw === "") return null;
+    if (raw === "") {
+        return null;
+    }
 
     const value = Number(raw);
     return Number.isFinite(value) ? value : null;
@@ -357,6 +530,10 @@ function isInRange(value, range) {
     return true;
 }
 
+function getInputValue(id) {
+    return String(document.getElementById(id)?.value ?? "").trim();
+}
+
 function safeText(value) {
     return String(value ?? "").toLowerCase();
 }
@@ -371,8 +548,14 @@ function escapeHtml(value) {
 }
 
 function formatNumber(value) {
-    if (value === null || value === undefined || value === "") return "-";
+    if (value === null || value === undefined || value === "") {
+        return "-";
+    }
+
     const number = Number(value);
-    if (!Number.isFinite(number)) return value;
+    if (!Number.isFinite(number)) {
+        return value;
+    }
+
     return Number.isInteger(number) ? String(number) : String(Math.round(number * 1000) / 1000);
 }

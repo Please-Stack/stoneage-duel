@@ -463,3 +463,73 @@ select:focus {
     min-width: 0;
     text-align: center;
 }
+
+.main-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 18px;
+}
+
+.tab-button {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 11px 18px;
+    color: var(--text-sub);
+    background: rgba(15, 23, 42, 0.72);
+    font-weight: 900;
+}
+
+.tab-button.active {
+    color: #062033;
+    border-color: var(--primary);
+    background: var(--primary);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.opponent-card {
+    border-left-color: var(--accent);
+}
+
+.opponent-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.opponent-title {
+    color: var(--primary);
+    font-size: 1.16rem;
+    font-weight: 900;
+}
+
+.opponent-sub {
+    margin-top: 5px;
+    color: var(--text-sub);
+    font-size: 0.84rem;
+}
+
+.opponent-speed {
+    min-width: 76px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    background: #0b1220;
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.opponent-speed strong {
+    display: block;
+    margin-top: 3px;
+    color: var(--primary);
+    font-size: 1rem;
+}
