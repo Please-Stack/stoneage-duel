@@ -1,24 +1,684 @@
 [
     {
-        "tribe": "부족A",
-        "nickname": "상대닉1",
+        "tribe": "",
+        "nickname": "포로",
         "elements": {
-            "지": 6,
-            "수": 4,
+            "지": 0,
+            "수": 10,
             "화": 0,
             "풍": 0
         },
-        "expectedSpeed": 180
+        "expectedSpeed": null
     },
     {
-        "tribe": "부족B",
-        "nickname": "상대닉2",
+        "tribe": "",
+        "nickname": "데이다라",
+        "elements": {
+            "지": 0,
+            "수": 5,
+            "화": 5,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "히단",
         "elements": {
             "지": 0,
             "수": 0,
-            "화": 7,
-            "풍": 3
+            "화": 5,
+            "풍": 5
         },
-        "expectedSpeed": 210
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "EVE",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "미나토",
+        "elements": {
+            "지": 5,
+            "수": 0,
+            "화": 0,
+            "풍": 5
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "딸기라뗴",
+        "elements": {
+            "지": 0,
+            "수": 5,
+            "화": 5,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "마다라",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 5,
+            "풍": 5
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "원쭈",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "오로치마루",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "사소리",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "나가토",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "벌꿀오소리",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "카이만",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "메가커피",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "맘모스",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "우치하",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "청자다방",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "컴포즈",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "젖소",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "지지지[진]",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "KKKKK",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "bbbbb",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 10
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "코쿠시보",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 5,
+            "풍": 5
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "도우마",
+        "elements": {
+            "지": 0,
+            "수": 5,
+            "화": 5,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "운로",
+        "elements": {
+            "지": 5,
+            "수": 0,
+            "화": 0,
+            "풍": 5
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "아선",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "지",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "하루W",
+        "elements": {
+            "지": 0,
+            "수": 10,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "배돈",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "도마",
+        "elements": {
+            "지": 0,
+            "수": 10,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "돌격스톤",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "이누",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "황제",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "영",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 10
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "개토",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "스톤돌격",
+        "elements": {
+            "지": 0,
+            "수": 10,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "Ares",
+        "elements": {
+            "지": 5,
+            "수": 0,
+            "화": 0,
+            "풍": 5
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "김개토",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "진하울",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "중중",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "금자",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "maxim",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "하안눈의이리",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "홍차라뗴",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "감자율",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "씨범",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "베젤",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "날",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "우띠",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "D-DAY",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "채채",
+        "elements": {
+            "지": 0,
+            "수": 5,
+            "화": 5,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "졸려zZ",
+        "elements": {
+            "지": 10,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "도사",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "금순",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "호머",
+        "elements": {
+            "지": 0,
+            "수": 5,
+            "화": 5,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "매기",
+        "elements": {
+            "지": 0,
+            "수": 10,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "푹산고",
+        "elements": {
+            "지": 10,
+            "수": 0,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "블루오션",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "오션블루",
+        "elements": {
+            "지": 0,
+            "수": 0,
+            "화": 0,
+            "풍": 10
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "시기",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "깜짝이",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
+    },
+    {
+        "tribe": "",
+        "nickname": "광땡",
+        "elements": {
+            "지": 5,
+            "수": 5,
+            "화": 0,
+            "풍": 0
+        },
+        "expectedSpeed": null
     }
 ]
