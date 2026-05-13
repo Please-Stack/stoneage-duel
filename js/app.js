@@ -118,15 +118,15 @@ function searchPets() {
 
     const filters = {
         name: getInputValue("pName").toLowerCase(),
-        지: getNumberValue("eJi"),
-        수: getNumberValue("eSu"),
-        화: getNumberValue("eHwa"),
-        풍: getNumberValue("ePung"),
-        atk: getNumberValue("minAtk"),
-        def: getNumberValue("minDef"),
-        agi: getNumberValue("minAgi"),
-        hp: getNumberValue("minHp"),
-        total: getNumberValue("minTotal"),
+        지: getRangeFilter("minJi", "maxJi"),
+        수: getRangeFilter("minSu", "maxSu"),
+        화: getRangeFilter("minHwa", "maxHwa"),
+        풍: getRangeFilter("minPung", "maxPung"),
+        atk: getRangeFilter("minAtk", "maxAtk"),
+        def: getRangeFilter("minDef", "maxDef"),
+        agi: getRangeFilter("minAgi", "maxAgi"),
+        hp: getRangeFilter("minHp", "maxHp"),
+        total: getRangeFilter("minTotal", "maxTotal"),
         ride: getInputValue("rideFilter")
     };
 
@@ -142,15 +142,15 @@ function searchPets() {
 
             return matchName &&
                 matchRide &&
-                Number(pet.elem?.지 || 0) >= filters.지 &&
-                Number(pet.elem?.수 || 0) >= filters.수 &&
-                Number(pet.elem?.화 || 0) >= filters.화 &&
-                Number(pet.elem?.풍 || 0) >= filters.풍 &&
-                Number(pet.stats?.atk || 0) >= filters.atk &&
-                Number(pet.stats?.def || 0) >= filters.def &&
-                Number(pet.stats?.agi || 0) >= filters.agi &&
-                Number(pet.stats?.hp || 0) >= filters.hp &&
-                Number(pet.total || 0) >= filters.total;
+                isInRange(pet.elem?.지, filters.지) &&
+                isInRange(pet.elem?.수, filters.수) &&
+                isInRange(pet.elem?.화, filters.화) &&
+                isInRange(pet.elem?.풍, filters.풍) &&
+                isInRange(pet.stats?.atk, filters.atk) &&
+                isInRange(pet.stats?.def, filters.def) &&
+                isInRange(pet.stats?.agi, filters.agi) &&
+                isInRange(pet.stats?.hp, filters.hp) &&
+                isInRange(pet.total, filters.total);
         })
         .sort((a, b) => {
             const aValue = Number(getPetValueByPath(a, sortMetric) || 0);
@@ -280,19 +280,22 @@ function getSelectedSortMetric() {
     }
 
     const candidates = [
-        ["minTotal", "total"],
-        ["minAtk", "stats.atk"],
-        ["minDef", "stats.def"],
-        ["minAgi", "stats.agi"],
-        ["minHp", "stats.hp"],
-        ["eJi", "elem.지"],
-        ["eSu", "elem.수"],
-        ["eHwa", "elem.화"],
-        ["ePung", "elem.풍"]
+        ["minTotal", "maxTotal", "total"],
+        ["minAtk", "maxAtk", "stats.atk"],
+        ["minDef", "maxDef", "stats.def"],
+        ["minAgi", "maxAgi", "stats.agi"],
+        ["minHp", "maxHp", "stats.hp"],
+        ["minJi", "maxJi", "elem.지"],
+        ["minSu", "maxSu", "elem.수"],
+        ["minHwa", "maxHwa", "elem.화"],
+        ["minPung", "maxPung", "elem.풍"]
     ];
 
-    const matched = candidates.find(([inputId]) => getInputValue(inputId) !== "");
-    return matched ? matched[1] : "total";
+    const matched = candidates.find(([minId, maxId]) => {
+        return getInputValue(minId) !== "" || getInputValue(maxId) !== "";
+    });
+
+    return matched ? matched[2] : "total";
 }
 
 function getPetValueByPath(pet, path) {
@@ -323,6 +326,35 @@ function getInputValue(id) {
 function getNumberValue(id) {
     const value = Number(getInputValue(id));
     return Number.isFinite(value) ? value : 0;
+}
+
+function getRangeFilter(minId, maxId) {
+    return {
+        min: getNullableNumberValue(minId),
+        max: getNullableNumberValue(maxId)
+    };
+}
+
+function getNullableNumberValue(id) {
+    const raw = getInputValue(id);
+    if (raw === "") return null;
+
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+}
+
+function isInRange(value, range) {
+    const number = Number(value || 0);
+
+    if (range.min !== null && number < range.min) {
+        return false;
+    }
+
+    if (range.max !== null && number > range.max) {
+        return false;
+    }
+
+    return true;
 }
 
 function safeText(value) {

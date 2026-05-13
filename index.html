@@ -42,48 +42,82 @@
                 </div>
             </div>
 
-            <div class="search-row row-4">
-                <div class="search-group">
-                    <label for="eJi" class="elem-ji">지속성 이상</label>
-                    <input type="number" id="eJi" min="0" max="10" placeholder="예: 7">
-                </div>
-                <div class="search-group">
-                    <label for="eSu" class="elem-su">수속성 이상</label>
-                    <input type="number" id="eSu" min="0" max="10" placeholder="예: 3">
-                </div>
-                <div class="search-group">
-                    <label for="eHwa" class="elem-hwa">화속성 이상</label>
-                    <input type="number" id="eHwa" min="0" max="10" placeholder="예: 8">
-                </div>
-                <div class="search-group">
-                    <label for="ePung" class="elem-pung">풍속성 이상</label>
-                    <input type="number" id="ePung" min="0" max="10" placeholder="예: 5">
-                </div>
-            </div>
-
-            <div class="search-row row-5">
-                <div class="search-group">
-                    <label for="minAtk">공 성장 이상</label>
-                    <input type="number" id="minAtk" step="0.001" placeholder="2.3">
-                </div>
-                <div class="search-group">
-                    <label for="minDef">방 성장 이상</label>
-                    <input type="number" id="minDef" step="0.001" placeholder="1.3">
-                </div>
-                <div class="search-group">
-                    <label for="minAgi">순 성장 이상</label>
-                    <input type="number" id="minAgi" step="0.001" placeholder="1.4">
-                </div>
-                <div class="search-group">
-                    <label for="minHp">체 성장 이상</label>
-                    <input type="number" id="minHp" step="0.001" placeholder="10.0">
-                </div>
-                <div class="search-group">
-                    <label for="minTotal">전체 성장 이상</label>
-                    <input type="number" id="minTotal" step="0.001" placeholder="5.0">
-                </div>
-            </div>
-
+	<div class="search-row row-4">
+	    <div class="search-group">
+	        <label class="elem-ji">지속성</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minJi" min="0" max="10" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxJi" min="0" max="10" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label class="elem-su">수속성</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minSu" min="0" max="10" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxSu" min="0" max="10" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label class="elem-hwa">화속성</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minHwa" min="0" max="10" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxHwa" min="0" max="10" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label class="elem-pung">풍속성</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minPung" min="0" max="10" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxPung" min="0" max="10" placeholder="MAX">
+	        </div>
+	    </div>
+	</div>
+	<div class="search-row row-5">
+	    <div class="search-group">
+	        <label>공 성장</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minAtk" step="0.001" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxAtk" step="0.001" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label>방 성장</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minDef" step="0.001" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxDef" step="0.001" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label>순 성장</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minAgi" step="0.001" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxAgi" step="0.001" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label>체 성장</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minHp" step="0.001" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxHp" step="0.001" placeholder="MAX">
+	        </div>
+	    </div>
+	    <div class="search-group">
+	        <label>전체 성장</label>
+	        <div class="range-inputs">
+	            <input type="number" id="minTotal" step="0.001" placeholder="MIN">
+	            <span>~</span>
+	            <input type="number" id="maxTotal" step="0.001" placeholder="MAX">
+	        </div>
+	    </div>
+	</div>
             <div class="search-row row-3">
                 <div class="search-group">
                     <label for="rideFilter">탑승 여부</label>
