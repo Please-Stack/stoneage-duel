@@ -94,11 +94,6 @@ button {
     background: var(--primary);
 }
 
-.remember-row {
-    display: flex;
-    justify-content: space-between;
-}
-
 .password-error {
     min-height: 22px;
     margin-top: 12px;
@@ -417,4 +412,36 @@ select:focus {
     .result-area {
         grid-template-columns: 1fr;
     }
+}
+
+/* 비밀번호 유지 체크박스 정리 */
+.remember-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: fit-content !important;
+    margin: 14px auto 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    color: #dbeafe !important;
+    cursor: pointer;
+    white-space: nowrap !important;
+}
+
+.remember-row input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: 0 0 auto !important;
+    accent-color: #38bdf8;
+    cursor: pointer;
+}
+
+.remember-row span {
+    display: inline-block !important;
+    white-space: nowrap !important;
 }
