@@ -261,20 +261,33 @@ function searchOpponents() {
     }
 
     const tribe = getInputValue("opponentTribe").toLowerCase();
-    const nickname = getInputValue("opponentNickname").toLowerCase();
+    const nicknameQueries = getOpponentNicknameQueries();
     const element = getInputValue("opponentElement");
     const speedRange = getRangeFilter("opponentSpeedMin", "opponentSpeedMax");
 
     const filtered = opponentData
         .filter(opponent => {
+            const opponentNickname = safeText(opponent.nickname);
             const matchTribe = safeText(opponent.tribe).includes(tribe);
-            const matchNickname = safeText(opponent.nickname).includes(nickname);
+            const matchNickname = nicknameQueries.length === 0 ||
+                nicknameQueries.some(query => opponentNickname.includes(query));
             const matchElement = element === "" || Number(opponent.elements?.[element] || 0) > 0;
             const matchSpeed = isInRange(opponent.expectedSpeed, speedRange);
 
             return matchTribe && matchNickname && matchElement && matchSpeed;
         })
-        .sort((a, b) => Number(b.expectedSpeed || 0) - Number(a.expectedSpeed || 0));
+        .sort((a, b) => {
+            if (nicknameQueries.length > 0) {
+                const aOrder = getOpponentNicknameOrder(a.nickname, nicknameQueries);
+                const bOrder = getOpponentNicknameOrder(b.nickname, nicknameQueries);
+
+                if (aOrder !== bOrder) {
+                    return aOrder - bOrder;
+                }
+            }
+
+            return Number(b.expectedSpeed || 0) - Number(a.expectedSpeed || 0);
+        });
 
     if (filtered.length === 0) {
         summaryArea.innerHTML = "";
@@ -282,9 +295,12 @@ function searchOpponents() {
         return;
     }
 
+    const missingNicknames = getMissingOpponentNicknames(nicknameQueries, filtered);
+
     summaryArea.innerHTML = `
         <div class="summary-box">
             상대팀 검색 결과: <strong>${filtered.length}</strong>개
+            ${missingNicknames.length ? `<br>미확인 닉네임: <strong>${escapeHtml(missingNicknames.join(", "))}</strong>` : ""}
         </div>
     `;
 
@@ -558,4 +574,27 @@ function formatNumber(value) {
     }
 
     return Number.isInteger(number) ? String(number) : String(Math.round(number * 1000) / 1000);
+}
+
+function getOpponentNicknameQueries() {
+    return [1, 2, 3, 4, 5]
+        .map(index => getInputValue(`opponentNickname${index}`).toLowerCase())
+        .filter(Boolean);
+}
+
+function getOpponentNicknameOrder(nickname, queries) {
+    const safeNickname = safeText(nickname);
+    const index = queries.findIndex(query => safeNickname.includes(query));
+
+    return index === -1 ? 999 : index;
+}
+
+function getMissingOpponentNicknames(queries, filteredOpponents) {
+    if (!queries.length) {
+        return [];
+    }
+
+    return queries.filter(query => {
+        return !filteredOpponents.some(opponent => safeText(opponent.nickname).includes(query));
+    });
 }

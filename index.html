@@ -183,50 +183,55 @@
         </section>
 
         <section id="opponentTab" class="tab-panel">
-            <section class="search-panel" aria-label="상대팀 정보 검색 조건">
-                <div class="search-row row-4">
-                    <div class="search-group">
-                        <label for="opponentTribe">부족</label>
-                        <input type="text" id="opponentTribe" placeholder="예: 부족명">
-                    </div>
-
-                    <div class="search-group">
-                        <label for="opponentNickname">닉네임</label>
-                        <input type="text" id="opponentNickname" placeholder="예: 상대 닉네임">
-                    </div>
-
-                    <div class="search-group">
-                        <label for="opponentElement">속성</label>
-                        <select id="opponentElement">
-                            <option value="">전체</option>
-                            <option value="지">지속성 포함</option>
-                            <option value="수">수속성 포함</option>
-                            <option value="화">화속성 포함</option>
-                            <option value="풍">풍속성 포함</option>
-                        </select>
-                    </div>
-
-                    <div class="search-group">
-                        <label>예상 순</label>
-                        <div class="range-inputs">
-                            <input type="number" id="opponentSpeedMin" placeholder="MIN">
-                            <span>~</span>
-                            <input type="number" id="opponentSpeedMax" placeholder="MAX">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-actions">
-                    <button type="button" class="btn-reset" onclick="resetOpponentSearch()">초기화</button>
-                    <button type="button" class="btn-search" onclick="searchOpponents()">검색</button>
-                </div>
-            </section>
-
-            <section id="opponentSummaryArea" class="summary-area"></section>
-            <section id="opponentResultArea" class="result-area"></section>
-        </section>
-    </main>
-
-    <script src="./js/app.js" defer></script>
-</body>
-</html>
+	<section class="search-panel" aria-label="상대팀 정보 검색 조건">
+	    <div class="search-row row-3">
+	        <div class="search-group">
+	            <label for="opponentTribe">부족</label>
+	            <input type="text" id="opponentTribe" placeholder="예: 부족명">
+	        </div>
+	
+	        <div class="search-group">
+	            <label for="opponentElement">속성</label>
+	            <select id="opponentElement">
+	                <option value="">전체</option>
+	                <option value="지">지속성 포함</option>
+	                <option value="수">수속성 포함</option>
+	                <option value="화">화속성 포함</option>
+	                <option value="풍">풍속성 포함</option>
+	            </select>
+	        </div>
+	
+	        <div class="search-group">
+	            <label>예상 순</label>
+	            <div class="range-inputs">
+	                <input type="number" id="opponentSpeedMin" placeholder="MIN">
+	                <span>~</span>
+	                <input type="number" id="opponentSpeedMax" placeholder="MAX">
+	            </div>
+	        </div>
+	    </div>
+	
+	    <div class="search-group">
+	        <label>상대 닉네임 최대 5명</label>
+	        <div class="opponent-nickname-grid">
+	            <input type="text" class="opponent-nickname-input" id="opponentNickname1" placeholder="1번 상대 닉네임">
+	            <input type="text" class="opponent-nickname-input" id="opponentNickname2" placeholder="2번 상대 닉네임">
+	            <input type="text" class="opponent-nickname-input" id="opponentNickname3" placeholder="3번 상대 닉네임">
+	            <input type="text" class="opponent-nickname-input" id="opponentNickname4" placeholder="4번 상대 닉네임">
+	            <input type="text" class="opponent-nickname-input" id="opponentNickname5" placeholder="5번 상대 닉네임">
+	        </div>
+	    </div>
+	
+	    <div class="search-actions">
+	        <button type="button" class="btn-reset" onclick="resetOpponentSearch()">초기화</button>
+	        <button type="button" class="btn-search" onclick="searchOpponents()">검색</button>
+	    </div>
+	</section>
+	            <section id="opponentSummaryArea" class="summary-area"></section>
+	            <section id="opponentResultArea" class="result-area"></section>
+	        </section>
+	    </main>
+	
+	    <script src="./js/app.js" defer></script>
+	</body>
+	</html>
