@@ -389,6 +389,7 @@ function renderPetCard(pet) {
 function renderOpponentCard(opponent) {
     const elements = opponent.elements || {};
     const dominant = getDominantElement(elements);
+    const elementHtml = renderOpponentElements(elements);
 
     return `
         <article class="card opponent-card">
@@ -406,10 +407,7 @@ function renderOpponentCard(opponent) {
             </div>
 
             <div class="elem-list">
-                ${renderOpponentElement("지", elements["지"])}
-                ${renderOpponentElement("수", elements["수"])}
-                ${renderOpponentElement("화", elements["화"])}
-                ${renderOpponentElement("풍", elements["풍"])}
+                ${elementHtml}
             </div>
         </article>
     `;
@@ -424,10 +422,24 @@ function renderStat(label, value) {
     `;
 }
 
-function renderOpponentElement(label, value) {
-    return `<span class="elem-badge bg-${escapeHtml(label)}">${escapeHtml(label)} ${escapeHtml(value || 0)}</span>`;
+function renderOpponentElements(elements) {
+    const html = ["지", "수", "화", "풍"]
+        .map(label => renderOpponentElement(label, elements[label]))
+        .filter(Boolean)
+        .join("");
+
+    return html || `<span class="opponent-empty-element">속성 정보 없음</span>`;
 }
 
+function renderOpponentElement(label, value) {
+    const number = Number(value || 0);
+
+    if (number <= 0) {
+        return "";
+    }
+
+    return `<span class="elem-badge bg-${escapeHtml(label)}">${escapeHtml(label)} ${escapeHtml(number)}</span>`;
+}
 function renderThumb(pet) {
     const imageUrl = pet?.imageUrl || pet?.img || pet?.image || pet?.thumb || pet?.thumbnail || "";
     const emoji = pet?.emoji || "🐾";
